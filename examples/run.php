@@ -25,6 +25,6 @@ try {
     $vm = new VM($module->consts, $module->globals, $module->functions);
     $vm->run($module->entry);
 } catch (Throwable $e) {
-    fwrite(STDERR, 'runtime error: ' . $e->getMessage() . "\n");
+    fwrite(STDERR, 'runtime error: ' . $e->getMessage() . ":". $e->getFile(). " ". $e->getLine(). "\n");
     exit(2);
 }
