@@ -2,17 +2,11 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/src/Token.php';
-require_once __DIR__ . '/src/Lexer.php';
-require_once __DIR__ . '/src/AST.php';
-require_once __DIR__ . '/src/Parser.php';
-require_once __DIR__ . '/src/CodeGen.php';
-require_once __DIR__ . '/src/Op.php';
-require_once __DIR__ . '/src/VM.php';
+require_once __DIR__. '/../vendor/autoload.php';
 
 use TinyCompiler\{Lexer, Parser, CodeGen, VM};
 
-$srcPath = $argv[1] ?? __DIR__ . '/examples/demo.lang';
+$srcPath = $argv[1] ?? __DIR__ . '/codes/demo.lang';
 if (!is_file($srcPath)) {
     fwrite(STDERR, "file not exist: $srcPath\n");
     exit(1);

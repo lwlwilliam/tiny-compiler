@@ -1,0 +1,19 @@
+{
+    "name": "lwlwilliam/tiny-compiler",
+    "description": "A toy compiler written in PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lwlwilliam",
+            "email": "1053317536@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+	"autoload": {
+        "psr-4": {
+            "TinyCompiler\\": "src/"
+        }
+    }
+}
