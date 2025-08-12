@@ -1,0 +1,6 @@
+// 被引入的库文件
+const GREETING = "Hello";
+
+fun twice(n) {
+  return n + n;
+}
