@@ -40,3 +40,15 @@
     - 数组：`ARRAY_NEW n`、`ARRAY_GET`、`ARRAY_SET`
     - 内置：`PRINT`（对栈顶进行输出并换行）
 - 全局表：按名称分配索引；局部表：按函数内分配槽位。
+
+### 要求
+
+`PHP 8.3`或`PHP 8.4`。
+
+### 使用
+
+```bash
+$ composer require lwlwilliam/tiny-compiler:dev-main
+$ cp -r vendor/lwlwilliam/tiny-compiler/examples # 注意：examples 后没有跟“/”
+$ php examples/run.php
+```
