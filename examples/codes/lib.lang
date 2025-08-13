@@ -2,5 +2,5 @@
 const GREETING = "Hello";
 
 fun twice(n) {
-  return n + n;
+    return n + n;
 }

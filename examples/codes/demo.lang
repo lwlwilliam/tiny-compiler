@@ -5,61 +5,62 @@ include "lib.lang";
 const PI = 3.14;
 let x = 10;
 let y;
-y = 2 * x + 5; // 25
+let z;
+z = y = 2 + 2 * (x + 5 + 6); // 44
+print("y = ", y, "\n", "z = ", z, "\n");
 
 // 数组与索引
 let arr = [1, 2, 3];
 arr[1] = 42;
-print(arr); // [1, 42, 3]
+print("arr = ", arr, "\n"); // [1, 42, 3]
 
 // 函数定义与调用
 fun add(a, b) {
-  return a + b;
+    return a + b;
 }
 
 /**
  * 斐波拉契函数
  */
 fun fact(n) {
-  let res = 1;
-  let i = 1;
-  while (i <= n) {
-    res = res * i;
-    i = i + 1;
-  }
-  return res;
+    let res = 1;
+    let i = 1;
+    while (i <= n) {
+        res = res * i;
+        i = i + 1;
+    }
+    return res;
 }
 
-print(add(3, 4)); // 7
-print(fact(5));   // 120
-print(twice(8));  // 16 (from lib)
-print(GREETING);  // Hello (from lib)
+print("add(3, 4) = ", add(3, 4), "\n"); // 7
+print("fact(5) = ", fact(5), "\n");   // 120
+print("twice(8) = ", twice(8), "\n");  // 16 (from lib)
+print("GREETING = ", GREETING, "\n");  // Hello (from lib)
 
 // if/else
-y = y - 10;
 if (y > 20) {
-  print("y > 20");
+    print("y > 20", "\n");
 } else {
-  print("y <= 20");
+    print("y <= 20", "\n");
 }
 
 // for 循环
 let sum = 0;
 for (let i = 0; i < 5; i = i + 1) {
-  sum = sum + i;
+    sum = sum + i;
 }
-print(sum); // 0 + 1 + 2 + 3 + 4 -> 10
+print("sum = ", sum, "\n"); // 0 + 1 + 2 + 3 + 4 -> 10
 
 // 逻辑短路
 let t = true;
 let f = false;
-print(t && 123);
-print(f && 123);
-print(t || 456);
-print(f || 456);
+print("true && 123 = ", t && 123, "\n");
+print("false && 123 = ", f && 123, "\n");
+print("true || 456 = ", t || 456, "\n");
+print("false || 456 = ", f || 456, "\n");
 
 // 使用常量
-print(PI);
+print("PI = ", PI, "\n");
 
 // 输出 null
-print(null);
+print("null = ", null, "\n");

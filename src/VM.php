@@ -290,14 +290,14 @@ final class VM
     private function doPrint(mixed $v): void
     {
         if (is_array($v)) {
-            echo json_encode($v, JSON_UNESCAPED_UNICODE) . "\n";
+            echo json_encode($v, JSON_UNESCAPED_UNICODE);
         } else {
             if (is_bool($v)) {
-                echo ($v ? 'true' : 'false') . "\n";
+                echo ($v ? 'true' : 'false');
             } elseif ($v === null) {
-                echo "null\n";
+                echo "null";
             } else {
-                echo (string)$v . "\n";
+                echo $v;
             }
         }
     }

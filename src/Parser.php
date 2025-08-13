@@ -105,16 +105,16 @@ final class Parser
         $this->expect(TokenType::SEMICOLON);
         $path = $tok->literal;
         $full = $this->resolvePath($path);
-        if (isset($this->included[$full])) {
+        if (isset($this->included[$full])) { // todo: 这里以后可能要修改，除非像 c 语言一样，只有一个入口。像 php 这种，多次引入可以多次执行。其实就连 c 语言也需要搞 #ifndef xxx.h xxx #endif
             // 已引入，视为空语句
             return new BlockStmt([]);
         }
         if (!is_file($full)) {
-            throw new ParseError($this->wrapException('file not exist: ' . $full));
+            throw new ParseError($this->wrapException('file not found: ' . $full));
         }
-        $this->included[$full] = true;
+        $this->included[$full] = true; // 标记是否已引入，已引入的就不会执行这里的代码
         $code = file_get_contents($full);
-        $sub = new Parser(new Lexer($full, $code), dirname($full), $this->included);
+        $sub = new Parser(new Lexer($full, $code), dirname($full), $this->included); // 如果有引入的代码，先执行引入文件中的
         $prog = $sub->parseProgram();
         return new BlockStmt($prog->stmts);
     }
@@ -288,28 +288,28 @@ final class Parser
     // 表达式优先级
     private const array PREC = [
         'LOWEST' => 0,
-        'ASSIGN' => 1,
-        'OR' => 2,
-        'AND' => 3,
-        'EQUAL' => 4,
-        'COMPARE' => 5,
-        'SUM' => 6,
-        'PRODUCT' => 7,
-        'PREFIX' => 8,
-        'CALL_INDEX' => 9,
+        'ASSIGN' => 1, // =
+        'OR' => 2, // ||
+        'AND' => 3, // &&
+        'EQUAL' => 4, // ==, !=
+        'COMPARE' => 5, // <, <=, >, >=
+        'SUM' => 6, // +, -
+        'PRODUCT' => 7, // *, /, %
+        'PREFIX' => 8, // !, -
+        'CALL_INDEX' => 9, // (, [
     ];
 
     private function precedenceOf(TokenType $t): int
     {
         return match ($t) {
-            TokenType::ASSIGN => self::PREC['ASSIGN'],
-            TokenType::OR => self::PREC['OR'],
-            TokenType::AND => self::PREC['AND'],
-            TokenType::EQ, TokenType::NE => self::PREC['EQUAL'],
-            TokenType::LT, TokenType::LE, TokenType::GT, TokenType::GE => self::PREC['COMPARE'],
-            TokenType::PLUS, TokenType::MINUS => self::PREC['SUM'],
-            TokenType::ASTERISK, TokenType::SLASH, TokenType::MOD => self::PREC['PRODUCT'],
-            TokenType::LPAREN, TokenType::LBRACKET => self::PREC['CALL_INDEX'],
+            TokenType::ASSIGN => self::PREC['ASSIGN'], // ==
+            TokenType::OR => self::PREC['OR'], // ||
+            TokenType::AND => self::PREC['AND'], // &&
+            TokenType::EQ, TokenType::NE => self::PREC['EQUAL'], // ==, !=
+            TokenType::LT, TokenType::LE, TokenType::GT, TokenType::GE => self::PREC['COMPARE'], // <, <=, >, >=
+            TokenType::PLUS, TokenType::MINUS => self::PREC['SUM'], // +, -
+            TokenType::ASTERISK, TokenType::SLASH, TokenType::MOD => self::PREC['PRODUCT'], // *, /, %
+            TokenType::LPAREN, TokenType::LBRACKET => self::PREC['CALL_INDEX'], // (, [
             default => self::PREC['LOWEST'],
         };
     }
