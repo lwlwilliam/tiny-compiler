@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 require_once __DIR__. '/../vendor/autoload.php';
 
-use TinyCompiler\{Lexer, Parser, CodeGen, VM};
-
-$srcPath = $argv[1] ?? __DIR__ . '/codes/demo.lang';
-if (!is_file($srcPath)) {
-    fwrite(STDERR, "file not exist: $srcPath\n");
-    exit(1);
-}
-$code = file_get_contents($srcPath);
+use TinyCompiler\Lexer;
+use TinyCompiler\Parser;
+use TinyCompiler\CodeGen;
+use TinyCompiler\VM;
 
 try {
+    $srcPath = $argv[1] ?? __DIR__ . '/codes/demo.lang';
+
+    if (!is_file($srcPath)) {
+        fwrite(STDERR, "file not found: $srcPath\n");
+        exit(1);
+    }
+
+    $code = file_get_contents($srcPath);
     $lexer = new Lexer($srcPath, $code);
+
     $included = [];
     $parser = new Parser($lexer, dirname($srcPath), $included);
     $prog = $parser->parseProgram();
