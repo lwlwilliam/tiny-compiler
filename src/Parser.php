@@ -82,16 +82,16 @@ final class Parser
     private function parseStatement(): Stmt
     {
         return match ($this->cur->type) {
-            TokenType::LET => $this->parseLet(),
-            TokenType::CONST => $this->parseConst(),
-            TokenType::FUN => $this->parseFunDecl(),
-            TokenType::IF => $this->parseIf(),
-            TokenType::WHILE => $this->parseWhile(),
-            TokenType::FOR => $this->parseFor(),
-            TokenType::RETURN => $this->parseReturn(),
-            TokenType::INCLUDE => $this->parseInclude(),
-            TokenType::LBRACE => $this->parseBlockStmt(),
-            default => $this->parseExprStmt(),
+            TokenType::LET => $this->parseLet(), // let 语句
+            TokenType::CONST => $this->parseConst(), // const 语句
+            TokenType::FUNC => $this->parseFuncDecl(), // 函数声明语句
+            TokenType::IF => $this->parseIf(), // if 语句
+            TokenType::WHILE => $this->parseWhile(), // while 语句
+            TokenType::FOR => $this->parseFor(), // for 语句
+            TokenType::RETURN => $this->parseReturn(), // return 语句
+            TokenType::INCLUDE => $this->parseInclude(), // include 语句
+            TokenType::LBRACE => $this->parseBlockStmt(), // 块语句
+            default => $this->parseExprStmt(), // 表达式语句
         };
     }
 
@@ -168,9 +168,9 @@ final class Parser
     /**
      * @throws ParseError
      */
-    private function parseFunDecl(): FunDecl
+    private function parseFuncDecl(): FuncDecl
     {
-        $this->expect(TokenType::FUN);
+        $this->expect(TokenType::FUNC);
         $nameTok = $this->expect(TokenType::IDENT);
         $this->expect(TokenType::LPAREN);
         $params = [];
@@ -186,7 +186,7 @@ final class Parser
         }
         $this->expect(TokenType::RPAREN);
         $body = $this->parseBlockStmt();
-        return new FunDecl($nameTok->literal, $params, $body);
+        return new FuncDecl($nameTok->literal, $params, $body);
     }
 
     /**

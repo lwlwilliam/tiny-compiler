@@ -128,7 +128,7 @@ final class ReturnStmt implements Stmt
     }
 }
 
-final class FunDecl implements Stmt
+final class FuncDecl implements Stmt
 {
     /** @param string[] $params */
     public function __construct(public string $name, public array $params, public BlockStmt $body)
@@ -137,7 +137,7 @@ final class FunDecl implements Stmt
 
     public function kind(): string
     {
-        return 'FunDecl';
+        return 'FuncDecl';
     }
 }
 

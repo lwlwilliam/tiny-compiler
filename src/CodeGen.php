@@ -125,19 +125,19 @@ final class CodeGen
         $code = [];
         // 一遍扫描：预先注册所有函数名为全局（递归扫描，兼容 include 产生的 BlockStmt）
         $this->walkStmts($prog->stmts, function ($s) {
-            if ($s instanceof FunDecl) {
+            if ($s instanceof FuncDecl) {
                 $this->sym->setGlobalMut($s->name, true);
             }
         });
         // 第二遍：生成所有函数体字节码（递归）
         $this->walkStmts($prog->stmts, function ($s) {
-            if ($s instanceof FunDecl) {
+            if ($s instanceof FuncDecl) {
                 $this->emitFunction($s);
             }
         });
         // 第三遍：其它顶层语句（全局变量/常量/执行逻辑）
         foreach ($prog->stmts as $s) {
-            if (!($s instanceof FunDecl)) {
+            if (!($s instanceof FuncDecl)) {
                 $this->emitStmt($code, $s, null);
             }
         }
@@ -169,11 +169,11 @@ final class CodeGen
                 }
                 $this->walkStmts([$s->body], $cb);
             }
-            // FunDecl 的 body 不需要在预注册阶段继续深入，但深入也无害，这里保持不深入以减少遍历
+            // FuncDecl 的 body 不需要在预注册阶段继续深入，但深入也无害，这里保持不深入以减少遍历
         }
     }
 
-    private function emitFunction(FunDecl $f): void
+    private function emitFunction(FuncDecl $f): void
     {
         $prevSym = $this->sym;
         $this->sym = new SymbolTable();
@@ -333,7 +333,7 @@ final class CodeGen
             $code[] = Op::RET;
             return;
         }
-        if ($s instanceof FunDecl) {
+        if ($s instanceof FuncDecl) {
             return;
         }
         throw new CGError('expect handle statement: ' . $s->kind());

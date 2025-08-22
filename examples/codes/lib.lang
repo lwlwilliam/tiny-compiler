@@ -1,6 +1,6 @@
 // 被引入的库文件
 const GREETING = "Hello";
 
-fun twice(n) {
+func twice(n) {
     return n + n;
 }

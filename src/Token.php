@@ -13,7 +13,7 @@ enum TokenType: string {
 
     case LET = 'LET'; // let
     case CONST = 'CONST'; // const
-    case FUN = 'FUN'; // fun
+    case FUNC = 'FUNC'; // func
     case RETURN = 'RETURN'; // return
     case IF = 'IF'; // if
     case ELSE = 'ELSE'; // else
@@ -74,7 +74,7 @@ final class Keywords {
     public static array $map = [
         'let' => TokenType::LET,
         'const' => TokenType::CONST,
-        'fun' => TokenType::FUN,
+        'func' => TokenType::FUNC,
         'return' => TokenType::RETURN,
         'if' => TokenType::IF,
         'else' => TokenType::ELSE,
