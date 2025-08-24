@@ -100,9 +100,9 @@ final class Parser
      */
     private function parseInclude(): Stmt
     {
-        $this->expect(TokenType::INCLUDE);
-        $tok = $this->expect(TokenType::STRING);
-        $this->expect(TokenType::SEMICOLON);
+        $this->expect(TokenType::INCLUDE); // 消费 include 关键字
+        $tok = $this->expect(TokenType::STRING); // 消费 include 后的字符串路径
+        $this->expect(TokenType::SEMICOLON); // 消费分号
         $path = $tok->literal;
         $full = $this->resolvePath($path);
         if (isset($this->included[$full])) { // todo: 这里以后可能要修改，除非像 c 语言一样，只有一个入口。像 php 这种，多次引入可以多次执行。其实就连 c 语言也需要搞 #ifndef xxx.h xxx #endif
@@ -110,7 +110,7 @@ final class Parser
             return new BlockStmt([]);
         }
         if (!is_file($full)) {
-            throw new ParseError($this->wrapException('file not found: ' . $full));
+            throw new ParseError($this->wrapException('included file not found: ' . $full));
         }
         $this->included[$full] = true; // 标记是否已引入，已引入的就不会执行这里的代码
         $code = file_get_contents($full);
