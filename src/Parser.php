@@ -442,7 +442,8 @@ final class Parser
     {
         $opTok = $this->cur;
         $this->next();
-        $right = $this->parseExpression($prec + 1);
+        $right = $this->parseExpression($prec + 1); // $prec + 1 是为了防止将同一优先级的的左结合变成右结合
+//        $right = $this->parseExpression($prec); // 会有结合性错误：1 * 2 * 3 -> 1 * (2 * 3)，+1 之后才会是 (1 * 2) * 3
         $op = match ($opTok->type) {
             TokenType::PLUS => '+',
             TokenType::MINUS => '-',

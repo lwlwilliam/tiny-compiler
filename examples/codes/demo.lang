@@ -6,13 +6,15 @@ const PI = 3.14;
 let x = 10;
 let y;
 let z;
-z = y = 2 + 2 * (x + 5 + 6); // 44
-print("y = ", y, "\n", "z = ", z, "\n");
+y = 2 + 2 * (x + 5 + 6); // 44
+z = (1 + 2) * 3; // 9
+let foo = 1 * 2 * 3 + 4; // 10
+print("y = ", y, "; z = ", z, "; foo = ", foo, "\n"); // y = 44; z = 9; foo = 10
 
 // 数组与索引
 let arr = [1, 2, 3];
 arr[1] = 42;
-print("arr = ", arr, "\n"); // [1, 42, 3]
+print("arr = ", arr, "\n"); // arr = [1, 42, 3]
 
 // 函数定义与调用
 func add(a, b) {
@@ -32,12 +34,13 @@ func fact(n) {
     return res;
 }
 
-print("add(3, 4) = ", add(3, 4), "\n"); // 7
-print("fact(5) = ", fact(5), "\n");   // 120
-print("twice(8) = ", twice(8), "\n");  // 16 (from lib)
-print("GREETING = ", GREETING, "\n");  // Hello (from lib)
+print("add(3, 4) = ", add(3, 4), "\n"); // add(3, 4) = 7
+print("fact(5) = ", fact(5), "\n");   // fact(5) = 120
+print("twice(8) = ", twice(8), "\n");  // twice(8) = 16 // (from lib)
+print("GREETING = ", GREETING, "\n");  // GREETING = Hello // (from lib)
 
 // if/else
+// y > 20
 if (y > 20) {
     print("y > 20", "\n");
 } else {
@@ -49,18 +52,18 @@ let sum = 0;
 for (let i = 0; i < 5; i = i + 1) {
     sum = sum + i;
 }
-print("sum = ", sum, "\n"); // 0 + 1 + 2 + 3 + 4 -> 10
+print("sum = ", sum, "\n"); // sum = 10 // 0 + 1 + 2 + 3 + 4 -> 10
 
 // 逻辑短路
 let t = true;
 let f = false;
-print("true && 123 = ", t && 123, "\n");
-print("false && 123 = ", f && 123, "\n");
-print("true || 456 = ", t || 456, "\n");
-print("false || 456 = ", f || 456, "\n");
+print("true && 123 = ", t && 123, "\n"); // true && 123 = 123
+print("false && 123 = ", f && 123, "\n"); // false && 123 = false
+print("true || 456 = ", t || 456, "\n"); // true || 456 = true
+print("false || 456 = ", f || 456, "\n"); // false || 456 = 456
 
 // 使用常量
-print("PI = ", PI, "\n");
+print("PI = ", PI, "\n"); // PI = 3.14
 
 // 输出 null
-print("null = ", null, "\n");
+print("null = ", null, "\n"); // null = null
