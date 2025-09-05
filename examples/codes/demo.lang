@@ -28,23 +28,40 @@ func fact(n) {
     let res = 1;
     let i = 1;
     while (i <= n) {
-        res = res * i;
+        if (i >= 2) {
+            res = res + i;
+        }
+//         if (i < 2) {
+//
+//         } else {
+//             res = res + i;
+//         }
         i = i + 1;
     }
     return res;
 }
 
+func fact2(n) {
+    if (n < 2) {
+        return n;
+    } else {
+        return fact2(n-1) + fact2(n-2);
+    }
+}
+
 print("add(3, 4) = ", add(3, 4), "\n"); // add(3, 4) = 7
-print("fact(5) = ", fact(5), "\n");   // fact(5) = 120
+print("fact(10) = ", fact(10), "\n");   // fact(10) = 55
 print("twice(8) = ", twice(8), "\n");  // twice(8) = 16 // (from lib)
 print("GREETING = ", GREETING, "\n");  // GREETING = Hello // (from lib)
 
 // if/else
 // y > 20
-if (y > 20) {
-    print("y > 20", "\n");
+if (y == 20) {
+    print("y == 20\n");
+} else if (y > 20) {
+    print("y > 20\n");
 } else {
-    print("y <= 20", "\n");
+    print("y < 20\n");
 }
 
 // for 循环
@@ -53,6 +70,23 @@ for (let i = 0; i < 5; i = i + 1) {
     sum = sum + i;
 }
 print("sum = ", sum, "\n"); // sum = 10 // 0 + 1 + 2 + 3 + 4 -> 10
+let j = 0;
+// todo: 加 break 和 continue 语句
+for (;j < 5;) {
+    j = j + 1;
+    print("Hello world from for statement\n");
+    if (j == 5) {
+        // break;
+    } else if (j == 8) {
+        // continue;
+    }
+}
+
+if (j == 0) {
+    print("j == 0\n");
+} else j = 666;
+
+print("j == ", j, "\n");
 
 // 逻辑短路
 let t = true;

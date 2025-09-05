@@ -202,7 +202,7 @@ final class Parser
         $else = null;
         if ($this->cur->type === TokenType::ELSE) {
             $this->next();
-            $else = $this->parseStatement();
+            $else = $this->parseStatement(); // 这里如果是 else if 就省了很多事，毕竟 else 后加的确实也是一个 if statement
         }
         return new IfStmt($cond, $then, $else);
     }
