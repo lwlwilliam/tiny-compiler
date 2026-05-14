@@ -1,6 +1,10 @@
 // 引入示例库
 include "lib.l";
 
+func separator() {
+    print("\033[32m****************************************************************\033[0m\n");
+}
+
 // 常量与变量
 const PI = 3.14;
 let x = 10;
@@ -11,10 +15,14 @@ z = (1 + 2) * 3; // 9
 let foo = 1 * 2 * 3 + 4; // 10
 print("y = ", y, "; z = ", z, "; foo = ", foo, "\n"); // y = 44; z = 9; foo = 10
 
+separator();
+
 // 数组与索引
 let arr = [1, 2, 3];
 arr[1] = 42;
 print("arr = ", arr, "\n"); // arr = [1, 42, 3]
+
+separator();
 
 // 函数定义与调用
 func add(a, b) {
@@ -51,8 +59,11 @@ func fact2(n) {
 
 print("add(3, 4) = ", add(3, 4), "\n"); // add(3, 4) = 7
 print("fact(10) = ", fact(10), "\n");   // fact(10) = 55
+print("fact2(10) = ", fact2(10), "\n");   // fact2(10) = 55
 print("twice(8) = ", twice(8), "\n");  // twice(8) = 16 // (from lib)
 print("GREETING = ", GREETING, "\n");  // GREETING = Hello // (from lib)
+
+separator();
 
 // if/else
 // y > 20
@@ -64,12 +75,17 @@ if (y == 20) {
     print("y < 20\n");
 }
 
+separator();
+
 // for 循环
 let sum = 0;
 for (let i = 0; i < 5; i = i + 1) {
     sum = sum + i;
 }
 print("sum = ", sum, "\n"); // sum = 10 // 0 + 1 + 2 + 3 + 4 -> 10
+
+separator();
+
 let j = 0;
 for (;j < 10;) {
     j = j + 1;
@@ -82,11 +98,15 @@ for (;j < 10;) {
     }
 }
 
+separator();
+
 if (j == 0) {
     print("j == 0\n");
 } else j = 666;
 
 print("j == ", j, "\n");
+
+separator();
 
 // 逻辑短路
 let t = true;
@@ -96,14 +116,22 @@ print("false && 123 = ", f && 123, "\n"); // false && 123 = false
 print("true || 456 = ", t || 456, "\n"); // true || 456 = true
 print("false || 456 = ", f || 456, "\n"); // false || 456 = 456
 
+separator();
+
 // 使用常量
 print("PI = ", PI, "\n"); // PI = 3.14
+
+separator();
 
 // 输出 null
 print("null = ", null, "\n"); // null = null
 
+separator();
+
 // 取模运算
 print("10 % 3 = ", 10 % 3, "\n"); // 10 % 3 = 1
+
+separator();
 
 // 一元逻辑非
 let flag = false;
@@ -111,15 +139,23 @@ if (!flag) {
     print("flag is false\n");
 }
 
+separator();
+
 // 数组索引读取
 print("first element: ", arr[0], "\n"); // first element: 1
+
+separator();
 
 // 函数嵌套调用
 print("nested: ", add(fact(3), 4), "\n"); // nested: 10  (fact(3)=6, 6+4=10)
 
+separator();
+
 // 字符串转义: \t \"
 print("tabs:\tbetween\n");
 print("say \"hello\"\n");
+
+separator();
 
 // 独立块语句
 {

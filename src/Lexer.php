@@ -212,6 +212,16 @@ final class Lexer {
             if ($this->ch === '\\') {
                 $this->readChar();
                 $esc = $this->ch;
+                if ($esc >= '0' && $esc <= '7') {
+                    $oct = $esc;
+                    $this->readChar();
+                    for ($i = 0; $i < 2 && $this->ch >= '0' && $this->ch <= '7'; $i++) {
+                        $oct .= $this->ch;
+                        $this->readChar();
+                    }
+                    $buf .= chr(octdec($oct));
+                    continue;
+                }
                 $map = [
                     'n' => "\n",
                     'r' => "\r",
