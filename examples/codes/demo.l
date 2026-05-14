@@ -1,5 +1,5 @@
 // 引入示例库
-include "lib.lang";
+include "lib.l";
 
 // 常量与变量
 const PI = 3.14;

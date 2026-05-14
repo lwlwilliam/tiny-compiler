@@ -5,7 +5,7 @@
 ### 编译器流水线
 
 ```
-源码 (.lang)
+源码 (.l)
   → Lexer (词法分析) → Token 流
   → Parser (语法分析) → AST
   → CodeGen (代码生成) → ModuleBC (字节码模块)
@@ -29,7 +29,7 @@ $ composer require lwlwilliam/tiny-compiler:dev-main
 ### 运行源码
 
 ```bash
-$ php examples/run.php examples/codes/demo.lang
+$ php examples/run.php examples/codes/demo.l
 ```
 
 输出：
@@ -69,8 +69,8 @@ inside block: 999
 将源码编译成二进制 `.bc` 字节码文件：
 
 ```bash
-$ php examples/compile.php examples/codes/demo.lang
-Compiled: examples/codes/demo.lang -> examples/codes/demo.bc
+$ php examples/compile.php examples/codes/demo.l
+Compiled: examples/codes/demo.l -> examples/codes/demo.bc
   size: 3,056 bytes
   consts: 47
   globals: 16
@@ -88,8 +88,8 @@ $ php examples/run.php examples/codes/demo.bc
 `.bc` 文件可分发到任何安装了 `TinyCompiler` 的环境中直接执行。如需人类可读的字节码文件，可使用 `--php` 导出为 `var_export` PHP 格式：
 
 ```bash
-$ php examples/compile.php --php examples/codes/demo.lang
-Compiled: examples/codes/demo.lang -> examples/codes/demo.bc.php (PHP (human-readable))
+$ php examples/compile.php --php examples/codes/demo.l
+Compiled: examples/codes/demo.l -> examples/codes/demo.bc.php (PHP (human-readable))
   size: 10,088 bytes
 ```
 
@@ -279,10 +279,10 @@ if (true) {
 ### 引入其他文件 (`include`)
 
 ```
-include "lib.lang";
+include "lib.l";
 
-print("GREETING = ", GREETING, "\n");   // 使用 lib.lang 中定义的常量
-print("twice(8) = ", twice(8), "\n");   // 使用 lib.lang 中定义的函数
+print("GREETING = ", GREETING, "\n");   // 使用 lib.l 中定义的常量
+print("twice(8) = ", twice(8), "\n");   // 使用 lib.l 中定义的函数
 ```
 
 ### 数组

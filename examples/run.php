@@ -11,7 +11,7 @@ use TinyCompiler\VM;
 use TinyCompiler\ModuleBC;
 
 try {
-    $srcPath = $argv[1] ?? __DIR__ . '/codes/demo.lang';
+    $srcPath = $argv[1] ?? __DIR__ . '/codes/demo.l';
 
     if (!is_file($srcPath)) {
         fwrite(STDERR, "file not found: $srcPath\n");

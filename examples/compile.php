@@ -12,7 +12,7 @@ use TinyCompiler\ModuleBC;
 try {
     $srcPath = $argv[1] ?? null;
     if ($srcPath === null) {
-        fwrite(STDERR, "Usage: php compile.php [--php] <source.lang> [output]\n");
+        fwrite(STDERR, "Usage: php compile.php [--php] <source.l> [output]\n");
         exit(1);
     }
 
@@ -23,7 +23,7 @@ try {
         array_shift($args);
     }
     if (empty($args)) {
-        fwrite(STDERR, "Usage: php compile.php [--php] <source.lang> [output]\n");
+        fwrite(STDERR, "Usage: php compile.php [--php] <source.l> [output]\n");
         exit(1);
     }
 
@@ -34,7 +34,7 @@ try {
     }
 
     $defaultExt = $asPhp ? '.bc.php' : '.bc';
-    $outPath = $args[1] ?? (dirname($srcPath) . '/' . basename($srcPath, '.lang') . $defaultExt);
+    $outPath = $args[1] ?? (dirname($srcPath) . '/' . basename($srcPath, '.l') . $defaultExt);
 
     $code = file_get_contents($srcPath);
     $lexer = new Lexer($srcPath, $code);
