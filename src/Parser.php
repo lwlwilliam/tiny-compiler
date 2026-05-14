@@ -3,14 +3,6 @@ declare(strict_types=1);
 
 namespace TinyCompiler;
 
-require_once __DIR__ . '/Token.php';
-require_once __DIR__ . '/AST.php';
-require_once __DIR__ . '/Lexer.php';
-
-final class ParseError extends \Exception
-{
-}
-
 final class Parser
 {
     private Lexer $lex;
@@ -82,16 +74,18 @@ final class Parser
     private function parseStatement(): Stmt
     {
         return match ($this->cur->type) {
-            TokenType::LET => $this->parseLet(), // let 语句
-            TokenType::CONST => $this->parseConst(), // const 语句
-            TokenType::FUNC => $this->parseFuncDecl(), // 函数声明语句
-            TokenType::IF => $this->parseIf(), // if 语句
-            TokenType::WHILE => $this->parseWhile(), // while 语句
-            TokenType::FOR => $this->parseFor(), // for 语句
-            TokenType::RETURN => $this->parseReturn(), // return 语句
-            TokenType::INCLUDE => $this->parseInclude(), // include 语句
-            TokenType::LBRACE => $this->parseBlockStmt(), // 块语句
-            default => $this->parseExprStmt(), // 表达式语句
+            TokenType::LET => $this->parseLet(),
+            TokenType::CONST => $this->parseConst(),
+            TokenType::FUNC => $this->parseFuncDecl(),
+            TokenType::IF => $this->parseIf(),
+            TokenType::WHILE => $this->parseWhile(),
+            TokenType::FOR => $this->parseFor(),
+            TokenType::RETURN => $this->parseReturn(),
+            TokenType::BREAK => $this->parseBreak(),
+            TokenType::CONTINUE => $this->parseContinue(),
+            TokenType::INCLUDE => $this->parseInclude(),
+            TokenType::LBRACE => $this->parseBlockStmt(),
+            default => $this->parseExprStmt(),
         };
     }
 
@@ -253,6 +247,26 @@ final class Parser
         $this->expect(TokenType::RPAREN);
         $body = $this->parseStatement();
         return new ForStmt($init, $cond, $step, $body);
+    }
+
+    /**
+     * @throws ParseError
+     */
+    private function parseBreak(): BreakStmt
+    {
+        $this->expect(TokenType::BREAK);
+        $this->expect(TokenType::SEMICOLON);
+        return new BreakStmt();
+    }
+
+    /**
+     * @throws ParseError
+     */
+    private function parseContinue(): ContinueStmt
+    {
+        $this->expect(TokenType::CONTINUE);
+        $this->expect(TokenType::SEMICOLON);
+        return new ContinueStmt();
     }
 
     /**

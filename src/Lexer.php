@@ -3,25 +3,25 @@ declare(strict_types=1);
 
 namespace TinyCompiler;
 
-require_once __DIR__ . '/Token.php';
-
 final class Lexer {
     private string $file;
     private string $input;
-    private int $pos = 0; // 当前索引
-    private int $readPos = 0;  // 预读索引
-    private string $ch = "\0"; // 当前字符
+    private int $inputLen;
+    private int $pos = 0;
+    private int $readPos = 0;
+    private string $ch = "\0";
     private int $line = 1;
     private int $col = 0;
 
     public function __construct(string $file, string $input) {
         $this->file = $file;
         $this->input = $input;
+        $this->inputLen = strlen($input);
         $this->readChar();
     }
 
     private function readChar(): void {
-        if ($this->readPos >= strlen($this->input)) {
+        if ($this->readPos >= $this->inputLen) {
             $this->ch = "\0";
         } else {
             $this->ch = $this->input[$this->readPos];
@@ -37,7 +37,7 @@ final class Lexer {
     }
 
     private function peekChar(): string {
-        if ($this->readPos >= strlen($this->input)) { return "\0"; }
+        if ($this->readPos >= $this->inputLen) { return "\0"; }
         return $this->input[$this->readPos];
     }
 

@@ -3,28 +3,6 @@ declare(strict_types=1);
 
 namespace TinyCompiler;
 
-require_once __DIR__ . '/Op.php';
-
-final class VMError extends \Exception
-{
-}
-
-final class Frame
-{
-    /**
-     * @param int[] $code
-     * @param int $ip
-     * @param array<int,mixed> $locals
-     */
-    public function __construct(
-        public array $code,
-        public int   $ip,
-        public array $locals,
-    )
-    {
-    }
-}
-
 final class VM
 {
     /** @var array<int,mixed> */
@@ -266,9 +244,9 @@ final class VM
     {
         $args = [];
         for ($i = 0; $i < $argc; $i++) {
-            array_unshift($args, array_pop($this->stack));
+            $args[] = array_pop($this->stack);
         }
-        return $args;
+        return array_reverse($args);
     }
 
     // 执行二元算术/逻辑运算：弹出右、左操作数并压入结果

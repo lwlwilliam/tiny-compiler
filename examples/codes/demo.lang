@@ -71,14 +71,14 @@ for (let i = 0; i < 5; i = i + 1) {
 }
 print("sum = ", sum, "\n"); // sum = 10 // 0 + 1 + 2 + 3 + 4 -> 10
 let j = 0;
-// todo: 加 break 和 continue 语句
-for (;j < 5;) {
+for (;j < 10;) {
     j = j + 1;
-    print("Hello world from for statement\n");
-    if (j == 5) {
-        // break;
-    } else if (j == 8) {
-        // continue;
+    if (j == 3 || j == 5 || j == 7) {
+        continue;
+    }
+    print("Hello world number: ", j, "\n");
+    if (j == 4) {
+        break;
     }
 }
 
