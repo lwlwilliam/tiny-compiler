@@ -18,7 +18,7 @@ try {
         exit(1);
     }
 
-    if (str_ends_with($srcPath, '.bc')) {
+    if (str_ends_with($srcPath, '.bc') || str_ends_with($srcPath, '.bc.php')) {
         $module = ModuleBC::loadFromFile($srcPath);
     } else {
         $code = file_get_contents($srcPath);

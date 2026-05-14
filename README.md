@@ -55,29 +55,82 @@ true || 456 = true
 false || 456 = 456
 PI = 3.14
 null = null
+10 % 3 = 1
+flag is false
+first element: 1
+nested: 10
+tabs:	between
+say "hello"
+inside block: 999
 ```
 
 ### 编译为字节码 & 单独运行
 
-将源码编译成 `.bc` 字节码文件：
+将源码编译成二进制 `.bc` 字节码文件：
 
 ```bash
 $ php examples/compile.php examples/codes/demo.lang
 Compiled: examples/codes/demo.lang -> examples/codes/demo.bc
-  consts: 46
+  size: 3,056 bytes
+  consts: 47
   globals: 16
   functions: 4
-  entry ops: 432
+  entry ops: 462
 ```
 
-生成的 `.bc` 文件是合法的 PHP 文件，无需编译器和 parser 即可运行：
+生成的 `.bc` 文件是紧凑的二进制格式（`TBC\x00` 魔数头），无需 Lexer / Parser / CodeGen，仅需 VM 即可运行：
 
 ```bash
 $ php examples/run.php examples/codes/demo.bc
 # 输出与直接运行源码完全一致
 ```
 
-你可以将 `.bc` 字节码文件分发到任何安装了 `TinyCompiler`（仅需 VM 部分）的环境中单独执行。
+`.bc` 文件可分发到任何安装了 `TinyCompiler` 的环境中直接执行。如需人类可读的字节码文件，可使用 `--php` 导出为 `var_export` PHP 格式：
+
+```bash
+$ php examples/compile.php --php examples/codes/demo.lang
+Compiled: examples/codes/demo.lang -> examples/codes/demo.bc.php (PHP (human-readable))
+  size: 10,088 bytes
+```
+
+导出的 `.bc.php` 文件结构一览：
+
+```php
+<?php return array (
+  'version' => 1,
+  'consts' =>
+  array (
+    0 => NULL,
+    1 => 1,
+    2 => 2,
+    3 => 'fact2',
+    4 => 'Hello',
+    5 => 3.14,
+    // ... 共 47 个常量
+  ),
+  'globals' =>
+  array (
+    'twice' => 0,
+    'add' => 1,
+    'fact' => 2,
+    // ... 共 16 个
+  ),
+  'functions' =>
+  array (
+    'twice' =>
+    array (
+      'code' => array ( 1, 0, 4, 0, 4, 0, 10, 1, 1, 1, 51 ),
+      'nLocals' => 1,
+    ),
+    // ... 共 4 个函数
+  ),
+  'entry' =>
+  array (
+    1, 0, 2, 1, 1, ...
+    // 462 条字节码指令
+  ),
+);
+```
 
 ---
 

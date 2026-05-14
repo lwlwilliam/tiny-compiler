@@ -12,16 +12,29 @@ use TinyCompiler\ModuleBC;
 try {
     $srcPath = $argv[1] ?? null;
     if ($srcPath === null) {
-        fwrite(STDERR, "Usage: php compile.php <source.lang> [output.bc]\n");
+        fwrite(STDERR, "Usage: php compile.php [--php] <source.lang> [output]\n");
         exit(1);
     }
 
+    $asPhp = false;
+    $args = array_slice($argv, 1);
+    if ($args[0] === '--php') {
+        $asPhp = true;
+        array_shift($args);
+    }
+    if (empty($args)) {
+        fwrite(STDERR, "Usage: php compile.php [--php] <source.lang> [output]\n");
+        exit(1);
+    }
+
+    $srcPath = $args[0];
     if (!is_file($srcPath)) {
         fwrite(STDERR, "file not found: $srcPath\n");
         exit(1);
     }
 
-    $outPath = $argv[2] ?? (dirname($srcPath) . '/' . basename($srcPath, '.lang') . '.bc');
+    $defaultExt = $asPhp ? '.bc.php' : '.bc';
+    $outPath = $args[1] ?? (dirname($srcPath) . '/' . basename($srcPath, '.lang') . $defaultExt);
 
     $code = file_get_contents($srcPath);
     $lexer = new Lexer($srcPath, $code);
@@ -33,8 +46,15 @@ try {
     $cg = new CodeGen();
     $module = $cg->emitModule($prog);
 
-    $module->saveToFile($outPath);
-    echo "Compiled: $srcPath -> $outPath\n";
+    if ($asPhp) {
+        $module->saveToPhpFile($outPath);
+    } else {
+        $module->saveToFile($outPath);
+    }
+    $size = filesize($outPath);
+    $format = $asPhp ? 'PHP (human-readable)' : 'binary';
+    echo "Compiled: $srcPath -> $outPath ($format)\n";
+    echo "  size: " . number_format($size) . " bytes\n";
     echo "  consts: " . count($module->consts) . "\n";
     echo "  globals: " . count($module->globals) . "\n";
     echo "  functions: " . count($module->functions) . "\n";

@@ -77,7 +77,7 @@ for (;j < 10;) {
         continue;
     }
     print("Hello world number: ", j, "\n");
-    if (j == 4) {
+    if (j == 8) {
         break;
     }
 }
@@ -101,3 +101,28 @@ print("PI = ", PI, "\n"); // PI = 3.14
 
 // 输出 null
 print("null = ", null, "\n"); // null = null
+
+// 取模运算
+print("10 % 3 = ", 10 % 3, "\n"); // 10 % 3 = 1
+
+// 一元逻辑非
+let flag = false;
+if (!flag) {
+    print("flag is false\n");
+}
+
+// 数组索引读取
+print("first element: ", arr[0], "\n"); // first element: 1
+
+// 函数嵌套调用
+print("nested: ", add(fact(3), 4), "\n"); // nested: 10  (fact(3)=6, 6+4=10)
+
+// 字符串转义: \t \"
+print("tabs:\tbetween\n");
+print("say \"hello\"\n");
+
+// 独立块语句
+{
+    let shadow = 999;
+    print("inside block: ", shadow, "\n");
+}
